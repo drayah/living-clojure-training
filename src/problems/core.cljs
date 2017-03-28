@@ -144,10 +144,23 @@
 (defn symmetric-tree?
   "Returns true if a given binary tree is symmetric"
   [tree]
-  (letfn [(say-hi [name] 
-            (str "Hi, " name))
-          (say-bye [name] 
-            (str "Bye, " name))]
-    (println (say-hi "gio"))
-    (println (say-bye "kio"))))
-
+  (letfn [(left [t]
+            (first (rest t)))
+          (right [t]
+            (second (rest t)))
+          (mirrored? [l r] 
+            (if
+              (and
+                (nil? l)
+                (nil? r))
+              true
+              (let [lvalue (first l)
+                    rvalue (first r)]
+                (if (not (= lvalue rvalue))
+                  false
+                  (and
+                    (mirrored? (left l) (right r))
+                    (mirrored? (right l) (left r)))))))]
+    (mirrored?
+      (left tree)
+      (right tree))))
