@@ -171,3 +171,29 @@
   [f]
   (fn [a b]
     (f b a)))
+
+;rotate a sequence
+(defn rotate
+  "Rotates a given sequence left or right by quantity"
+  [quantity coll]
+  (letfn [(rotate-left [elems n]
+            (loop [counter n
+                   result elems]
+              (if (= 0 counter)
+                result
+                (let [elem (first result)
+                      remaining (rest result)
+                      updated (concat remaining [elem])]
+                  (recur (dec counter) (concat remaining [elem]))))))
+          (rotate-right [elems n]
+            (loop [counter n
+                   result elems]
+              (if (= 0 counter)
+                result
+                (let [elem (last result)
+                      remaining (butlast result)
+                      updated (concat [elem] remaining)]
+                 (recur (dec counter) updated)))))]
+    (if (> quantity 0)
+      (rotate-left coll quantity)
+      (rotate-right coll (Math/abs quantity)))))
