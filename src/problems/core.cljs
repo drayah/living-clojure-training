@@ -184,7 +184,7 @@
                 (let [elem (first result)
                       remaining (rest result)
                       updated (concat remaining [elem])]
-                  (recur (dec counter) (concat remaining [elem]))))))
+                  (recur (dec counter) updated)))))
           (rotate-right [elems n]
             (loop [counter n
                    result elems]
