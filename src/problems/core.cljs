@@ -164,3 +164,10 @@
     (mirrored?
       (left tree)
       (right tree))))
+
+;flipping out
+(defn flip
+  "Return a function g which flips the order of the arguments of an input function f"
+  [f]
+  (fn [a b]
+    (f b a)))
