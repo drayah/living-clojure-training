@@ -210,7 +210,6 @@
                                (>= n))
                          0
                          (inc current))]
-        (recur
-          (assoc acc current subsequence)
-          next-index
-          (rest elems))))))
+        (recur (assoc acc current subsequence)
+               next-index
+               (rest elems))))))
