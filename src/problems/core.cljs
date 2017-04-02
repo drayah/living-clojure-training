@@ -193,3 +193,24 @@
     (if (> quantity 0)
       (rotate-left coll quantity)
       (rotate-right coll (Math/abs quantity)))))
+
+;reverse interleave
+(defn reverse-interleave
+  "Reverses the interleave process into n number of subsequences"
+  [coll n]
+  (loop [acc (vec (repeat n []))
+         current 0
+         elems coll]
+    (if (empty? elems)
+      acc
+      (let [elem (first elems)
+            subsequence (conj (nth acc current) elem)
+            next-index (if (-> current
+                               inc
+                               (>= n))
+                         0
+                         (inc current))]
+        (recur
+          (assoc acc current subsequence)
+          next-index
+          (rest elems))))))
