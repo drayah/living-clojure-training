@@ -213,3 +213,10 @@
         (recur (assoc acc current subsequence)
                next-index
                (rest elems))))))
+
+;split by type
+(defn split-by-type
+  "Split a seq of different types into homogeneous sub-sequences"
+  [coll]
+  (-> (group-by type coll)
+      vals))
