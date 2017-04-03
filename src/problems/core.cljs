@@ -220,3 +220,19 @@
   [coll]
   (-> (group-by type coll)
       vals))
+
+;prime numbers
+(defn primes
+  "Returns the first n number of primes"
+  [n]
+  (letfn [(divisable? [a b]
+            (= 0 (rem a b)))
+          (prime? [n]
+            (if (< n 2)
+              false
+              (let [trials (range 2 n)]
+                (not-any? #(divisable? n %) trials))))]
+    (let [candidates (rest (range))
+          primes (for [x candidates :when (prime? x)]
+                   x)]
+      (take n primes))))
