@@ -236,3 +236,21 @@
           primes (for [x candidates :when (prime? x)]
                    x)]
       (take n primes))))
+
+;anagram finder
+(defn anagrams
+  "Given a vector of words return a set of sets containing word anagrams"
+  [words]
+  (letfn [(normalize [word]
+            (clojure.string/join (sort word)))]
+    (let [normalized (map #(normalize %) words)
+          freqs (frequencies normalized)
+          anagram-freqs (filter #(> (val %) 1) freqs)
+          anagrams (reduce (fn [result item]
+                             (assoc result (key item) #{})) {} anagram-freqs)]
+      (into #{} (vals
+                  (reduce (fn [result word]
+                            (let [key (normalize word)]
+                              (if (result key)
+                                (assoc result key (conj (result key) word))
+                                result))) anagrams words))))))
